@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script type="module" src="../scripts/dashboard.mjs"></script>
+    <link rel="stylesheet" href="../css/global.css">
+
+</head>
+
+<body>
+    <header>
+        <div class="nav-menu">
+            <a class="nav-menu-title">
+                Lorrany Stefane Exclusiva
+            </a>
+            <a href="/dashboard" class="nav-menu-item">
+                Realizar Vendas
+            </a>
+            <a  class="nav-menu-item">
+                Caixa
+            </a>
+            <a href="/clients" class="nav-menu-item">
+                Clientes
+            </a>
+            <a href="/admin" class="nav-menu-item">
+                Admin
+            </a>
+            <span id="logout-btn-id" class="logout-btn">
+                Deslogar
+            </span>
+        </div>
+    </header>
+    <div class="grid-container">
+        <div class="lateral-search-container">
+            <div class="search-container">
+                <label class="search-title" for="">Produto: </label>
+                <input autocomplete="off" required placeholder="Nome ou Codigo do Produto" type="search" name=""
+                    id="product">
+                <label for=""><select name="mode" id="search-mode">
+                        <option value="codigo">codigo</option>
+                        <option value="nome">nome</option>
+                    </select></label>
+            </div>
+            <div class="search-results" id="results">
+
+            </div>
+            <div class="dados-container">
+                <h2>Dados</h2>
+                <form action="">
+                    <input type="text" value="Cliente" required id="client">
+                    <input required min="0" type="number" placeholder="Valor Pago" id="payment">
+                    <select id="payment-method">
+                        <option value="">Metodo de Pagamento</option>
+                        <option value="a-vista">Á vista</option>
+                        <option value="debito">Débito</option>
+                        <option value="credito">Crédito</option>
+                        <option value="pix">Pix</option>
+                        <option value="desconto">Desconto</option>
+                        <option value="colaboradora">Colaboradora</option>
+                    </select>
+                    <button id="add-payment">Adicionar Pagamento</button>
+                </form>
+                <button id="fn-btn-id" class="fn-btn red" disabled>Finalizar</button>
+                <h3 id="cupom-number">Numero do cupom: aguardando...</h3>
+            </div>
+        </div>
+        <div class="main-container">
+            <div class="products-results-container" id="selected-products">
+                <h2>Itens Adicionados</h2>
+                <table width="100%" id="selected-itens">
+                    <tr class="result-table-head">
+                        <th width="100">Codigo</th>
+                        <th width="100">Descrição</th>
+                        <th width="100">Preço</th>
+                        <th width="100">Excluir</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="sub-dados">
+                <span id="quantity">Quantidade de Itens: 0</span>
+                <span id="total">Valor Total: R$ 0.00</span>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="../scripts/nav-menu.js"></script>
+
+</body>
+
+<style>
+
+    .dados-container h3 {
+        font-size: 25px;
+        font-weight: 700;
+        transform: translateY(35px);
+    }
+
+    .grid-container {
+        margin-top: 20px;
+        width: 95%;
+        display: grid;
+        grid-template-columns: 40% 60%;
+        align-items: top;
+    }
+    .search-container {
+        color: black;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        font-size: 20px;
+        gap: 5px;
+    }
+
+    .search-title {
+        margin: 10px 0px 10px 0px;
+    }
+
+    .search-button {
+        background-color: white;
+        font-size: 13px;
+        border-radius: 11px;
+        padding: 7px;
+        border: none;
+        transition: 0.3s;
+    }
+
+    .search-button:hover {
+        background-color: black;
+        color: white;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .search-results {
+        background-color: black;
+        overflow: auto;
+        width: 95%;
+        height: 70%;
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0px;
+        border-radius: 7px;
+        margin-top: 20px;
+        text-align: center;
+        z-index: 1;
+        position: absolute;
+        transform: translateY(33px);
+        background-color: white;
+    }
+
+    .search-results section {
+        color: black;
+        font-weight: 300;
+        font-size: 13px;
+        display: grid;
+        grid-template-columns: repeat(4, 25%);
+        justify-content: left;
+        align-items: left;
+        border-bottom: 1px dashed pink;
+        padding: 3px;
+    }
+
+    .search-results button {
+        font-weight: 300;
+        font-size: 13px;
+
+    }
+
+    .result-table-head {
+        padding: 5px;
+    }
+
+    .result-table-head th {
+        background-color: deeppink;
+        padding: 5px;
+        border-radius: 11px;
+    }
+
+    .result-table-body td {
+        background-color: white;
+        color: black;
+        padding: 5px;
+        border-radius: 10px;
+        font-size: 10px;
+    }
+
+    #search-mode {
+        background-color: white;
+        border: none;
+        padding: 5px;
+        border-radius: 11px;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .products-results-container {
+        width: 70%;
+        height: 100%;
+        margin-top: 20px;
+        text-align: center;
+        max-height: 480px;
+    }
+
+    .products-results-container h2 {
+        font-size: 20px;
+        font-weight: 500;
+        margin: 0px 0px 20px 0px
+    }
+
+    .red {
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+        background-color: none;
+        border: none;
+    }
+
+    .rm-payment-btn {
+        font-weight: bold;
+        font-size: 15px;
+        cursor: pointer;
+        background-color: none;
+        border: none;
+    }
+
+    #selected-products {
+        height: 100%;
+        width: 79%;
+        overflow-y: auto;
+        overflow-x: auto;
+    }
+
+    .sub-dados {
+        margin: 15px 0px 0px 0px;
+        padding-top: 5px;
+        border-top: 1px solid deeppink;
+        display: flex;
+        gap: 100px;
+        font-size: 23px;
+        font-weight: bolder;
+        text-shadow: 2px 1px deeppink;
+        width: 70%;
+        justify-content: center;
+    }
+
+    .dados-container {
+        width: 100%;
+        height: 100%;
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .dados-container h2 {
+        margin: 10px 0px 10px 0px;
+    }
+
+    .dados-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dados-container form input {
+        width: 20vw;
+    }
+
+    .dados-container button {
+        padding: 7px 15px;
+        border-radius: 11px;
+        border: none;
+        transition: 0.3s;
+        font-size: 17px;
+        width: 20vw;
+    }
+
+    .dados-container button:hover {
+        background-color: black;
+        color: white;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+    .fn-btn {
+        transform: translateY(20px);
+        padding: 7px 15px;
+        border-radius: 11px;
+        border: none;
+        transition: 0.3s;
+        font-size: 20px;
+    }
+
+    .red:disabled:hover {
+        background-color: rgb(236, 3, 3);
+    }
+
+    .fn-btn:hover {
+        background-color: black;
+        color: white;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+</style>
+
+
+</html>

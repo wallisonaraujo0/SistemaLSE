@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/global.css">
+
+</head>
+<body>
+    <div class="main-container">
+        <div class="login-container">
+            <h1> Login </h1>
+            <input id="username" type="text" placeholder="username">
+            <input id="password" type="password" placeholder="senha">
+            <button id="login-btn" type="submit">Logar</button>
+        </div>
+    </div>
+</body>
+
+<style>
+    .main-container {
+        width: 100vw;
+        height: 100vh;
+        background: deeppink;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .login-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+        width: 30%;
+
+    }
+    .login-container h1 {
+        text-shadow: 1px 1px 1px black;
+    }
+    input {
+        width: 100%;
+        border: none;
+        padding: 9px;
+        border-radius: 11px;
+        box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.308);
+        outline: none;
+    }
+    button {
+        padding: 11px 7px;
+        border-radius: 11px;
+        border: none;
+        background-color: white;
+        color: black;
+        transition:0.3s ease-in;
+    }
+    button:hover {
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s ease-in;
+    }
+</style>
+<script type="module">
+    class userFunctions  {
+        constructor () {}
+        async login () {
+            const username = document.getElementById("username")
+            const password = document.getElementById("password")
+            if (username.value == "" || password.value == "") {alert("preeencha todos os campos"); return}
+            const loginResult = await fetch("/api/login", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username: username.value, password: password.value})
+            })
+            const json = await loginResult.json()
+            if (typeof json.response  === "string") {
+                alert(json.response)
+            }else {
+                    sessionStorage.setItem("token", json.response.token)
+                    sessionStorage.setItem("userLoja", json.response.loja)
+                    window.location.replace("/dashboard")
+            }
+        }
+    }
+    document.getElementById("login-btn").addEventListener("click", new userFunctions().login)
+</script>
+</html>

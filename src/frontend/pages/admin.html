@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="../css/global.css">
+</head>
+
+<body>
+    <header>
+        <div class="nav-menu">
+            <a class="nav-menu-title">
+                Lorrany Stefane Exclusiva
+            </a>
+            <a href="/dashboard" class="nav-menu-item">
+                Realizar Vendas
+            </a>
+            <a class="nav-menu-item">
+                Caixa
+            </a>
+            <a href="/clients" class="nav-menu-item">
+                Clientes
+            </a>
+            <a href="/admin" class="nav-menu-item">
+                Admin
+            </a>
+            <span id="logout-btn-id" class="logout-btn">
+                Deslogar
+            </span>
+        </div>
+    </header>
+    <main>
+        <div class="main-container">
+            <div class="grid-container">
+                <div class="left">
+                    <section class="upload-container">
+                        <form id="form" action="/api/planilhas/upload" method="post" enctype="multipart/form-data">
+                            <label for="">Enviar Planilha para o Servidor</label>
+                            <input id="file" type="file" name="planilha" hidden="true" />
+                            <input id="token" type="text" name="token" hidden="true" />
+                            <button id="send-btn"> Enviar Planilha </button>
+                        </form>
+                    </section>
+                </div>
+                <div class="right">
+                    <section class="download-container">
+                        <label for="">Baixar Planilha do Servidor</label>
+                        <a download href="/api/planilhas/download"> Baixar Planilha </a>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="../scripts/nav-menu.js"></script>
+<script>
+    const sendBtn = document.getElementById("send-btn")
+    const fileInput = document.getElementById("file")
+    const form = document.getElementById("form")
+
+    sendBtn.addEventListener("click", async (e) => {
+        e.preventDefault()
+        document.getElementById("token").value = sessionStorage.getItem("token")
+        fileInput.click()
+    })
+    fileInput.addEventListener("change", async () => {
+        form.requestSubmit()
+    })
+</script>
+
+<style>
+    main{
+        display: flex;
+        justify-content: center;
+    }
+    .main-container {
+        margin-top: 7%;
+        display: flex;
+        justify-content: center;
+        height: 50vh;
+        width: 95vw;
+        text-align: center;
+        color: white;
+    }
+    .grid-container {
+        display: grid;
+        width: 50%;
+        grid-template-columns: repeat(2, 50%);
+    }
+    .left {
+        justify-content: center;
+        margin: auto;
+
+    }
+    .right {
+        justify-content: center;
+        margin: auto;
+    }
+    .upload-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3px;
+    }
+    .download-container {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3px;
+    }
+    .download-container a {
+        padding: 10px 19px;
+        background-color: white;
+        color: deeppink;
+        border-radius: 17px;
+        border: none;
+        font-weight: bold;
+    }
+    .download-container a:hover {
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s ease-in
+    }
+    button {
+        padding: 14px 53px;
+        background-color: white;
+        color: deeppink;
+        border-radius: 17px;
+        border: none;
+        font-weight: bold;
+
+    }
+    button:hover {
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s ease-in
+    }
+</style>
+</html>
