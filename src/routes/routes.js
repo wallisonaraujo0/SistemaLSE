@@ -8,13 +8,11 @@ router.get("/planilhas/products", planilhaController.getProductsByPlanilha)
 router.post("/planilhas/addvenda", planilhaController.addVendasByPlanilha)
 router.post("/planilhas/addcupon", planilhaController.addCuponByPlanilha)
 router.get("/planilhas/download", planilhaController.download)
-
 //Clients
 router.get("/clients", planilhaController.getAllClientsByPlanilha)
 router.post("/clients", planilhaController.addClient)
 router.post("/login", planilhaController.login)
 router.post("/verify", planilhaController.verifyToken)
 router.get("/cuponumber", planilhaController.getCuponNUmber)
-
 
 export default router
