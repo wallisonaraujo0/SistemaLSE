@@ -15,8 +15,8 @@ app.use("/api",mainRoutes)
 app.get("/", (req, res) => {
     res.sendFile(path.resolve("src", "frontend", "pages", "login.html"))
 })
-app.get("/dashboard", (req, res) => {
-    res.sendFile(path.resolve("src", "frontend", "pages", "dashboard.html"))
+app.get("/pdv", (req, res) => {
+    res.sendFile(path.resolve("src", "frontend", "pages", "pdv.html"))
 })
 app.get("/clients", (req, res) => {
     res.sendFile(path.resolve("src", "frontend", "pages", "clients.html"))
