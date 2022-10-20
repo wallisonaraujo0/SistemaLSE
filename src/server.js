@@ -27,6 +27,9 @@ app.get("/admin", (req, res) => {
 app.get("/send", (req, res) => {
     res.sendFile(path.resolve("src", "frontend", "pages", "send.html"))
 })
+app.get("/caixa", (req, res) => {
+    res.sendFile(path.resolve("src", "frontend", "pages", "caixa.html"))
+})
 
 server.listen(3131 , () => {
     console.log(`Servidor rodando na no endereço http://127.0.0.1:${process.env.PORT}`)
