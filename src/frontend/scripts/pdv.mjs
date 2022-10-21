@@ -22,6 +22,7 @@ async function getCupomNumber() {
         console.log(err)
     }
 }
+
 getCupomNumber()
 class formActions {
     constructor() { }
@@ -81,22 +82,22 @@ class formActions {
             let data = resultsHtml[0]
             selectedProducts.forEach(product => {
                 data += `<tr class="result-table-body">
-        <td>${product.codigo}</td>
-        <td>${product.nome}</td>
-        <td>${product.preço}</td>
-        <td ><button value="${product.ms}" class="red">X</button></td>
-    </tr>`
+                            <td>${product.codigo}</td>
+                            <td>${product.nome}</td>
+                            <td>${product.preço}</td>
+                            <td ><button value="${product.ms}" class="red">X</button></td>
+                        </tr>`
             })
             let newTotalValueWithPaments = priceTotal
             if (addedPayments.length > 0) {
                 data += resultsHtml[1]
                 addedPayments.forEach(payment => {
                     data +=
-                    `<tr class="result-table-body">
-                        <td>${payment.valor}</td>
-                        <td>${payment.metodo}</td>
-                        <td > <button value="${payment.codigo}" class="rm-payment-btn">X</button></td>
-                    </tr>`
+                        `<tr class="result-table-body">
+                            <td>${payment.valor}</td>
+                            <td>${payment.metodo}</td>
+                            <td > <button value="${payment.codigo}" class="rm-payment-btn">X</button></td>
+                        </tr>`
                     newTotalValueWithPaments = parseInt(newTotalValueWithPaments) - parseInt(payment.valor)
                 })
             }
@@ -155,6 +156,7 @@ class formActions {
         inputs.productInput.value = ""
         inputs.productInput.focus()
     }
+
     async addPayment(e) {
         e.preventDefault()
         if (document.getElementById("payment").value === "") {
@@ -203,6 +205,7 @@ class formActions {
         }
         removeIntemAndPaymentEvent()
     }
+
     async removeItem() {
         const newSelectedProduct = selectedProducts.filter(product => product.ms != this.value)
         selectedProducts = newSelectedProduct
@@ -236,6 +239,7 @@ class formActions {
         document.getElementById("selected-itens").innerHTML = data
         removeIntemAndPaymentEvent()
     }
+
     async removePayment() {
         const newPayments = addedPayments.filter(payment => payment.codigo.toString() !== this.value.toString())
         addedPayments = addedPayments.length > 1 ? newPayments : []
@@ -272,6 +276,7 @@ class formActions {
         document.getElementById("selected-itens").innerHTML = data
         removeIntemAndPaymentEvent()
     }
+
     async sendCoupon(e) {
         let usedMetodos = [...new Set(addedPayments.map(payment => { return payment.metodo }))]
         let paymentsValues = addedPayments.map(payment => { return payment.valor })
@@ -366,16 +371,19 @@ class formActions {
         }
     }
 }
+
 const actionKeys = {
     searchMode: document.getElementById("search-mode"),
     sendBtn: document.getElementById("fn-btn-id"),
     addPaymentBtn: document.getElementById("add-payment")
 }
+
 const inputs = {
     form: document.getElementById('form'),
     productInput: document.getElementById("product"),
     paymentInput: document.getElementById("payment")
 }
+
 //event listners
 function removeIntemAndPaymentEvent(){
     document.querySelectorAll(".rm-payment-btn").forEach(e => {
@@ -385,6 +393,7 @@ function removeIntemAndPaymentEvent(){
         e.addEventListener("click", new formActions().removeItem)
     })
 }
+
 actionKeys.searchMode.addEventListener("change", () => { inputs.productInput.value = "" })
 actionKeys.sendBtn.addEventListener("click", new formActions().sendCoupon)
 actionKeys.addPaymentBtn.addEventListener("click", new formActions().addPayment)
