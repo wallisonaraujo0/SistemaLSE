@@ -20,9 +20,7 @@
             <a href="/pdv" class="nav-menu-item">
                 Realizar Vendas
             </a>
-            <a  href="/caixa" class="nav-menu-item">
-                Caixa
-            </a>
+            
             <a href="/clients" class="nav-menu-item">
                 Clientes
             </a>
@@ -31,6 +29,14 @@
             </a>
         </div>
     </header>
+    <div class="modal-containers">
+        <div class="modal" id ="abrir-caixa" style="display: none;">
+
+        </div>
+        <div class="modal" id="fexar-caixa" style="display: none;">
+
+        </div>
+    </div>
     <div class="grid-container">
         <div class="lateral-search-container">
             <div class="search-container">
@@ -61,12 +67,16 @@
                     </select>
                     <button id="add-payment">Adicionar Pagamento</button>
                 </form>
-                <button id="fn-btn-id" class="fn-btn red" disabled>Finalizar</button>
-                <h3 id="cupom-number">Numero do cupom: aguardando...</h3>
+                <button id="fn-btn-id" class="fn-btn red" disabled>Finalizar VENDA</button>
+                <div><br>
+                    <h2 id="situacaoCaixa">Caixa : <span>ABERTO</span></h2>
+                    <button>Fechar CAIXA</button>
+                </div>
             </div>
         </div>
         <div class="main-container">
             <div class="products-results-container" id="selected-products">
+                <h3 id="cupom-number">Numero do cupom: aguardando...</h3>
                 <h2>Itens Adicionados</h2>
                 <table width="100%" id="selected-itens">
                     <tr class="result-table-head">
